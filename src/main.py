@@ -60,10 +60,11 @@ async def main():
     
     #test单条数据插入
     await FeatureDao.insert(Feature(
+            pid = uuid_pwg,
             geometry=functions.ST_GeomFromGeoJSON(str(feature_collection.features[0].geometry)),
             properties=feature_collection.features[0].properties),
-            pid = 'd4ce1ffa-6e9e-4e77-9680-01bf84fb133f')
-        #test单条数据插入
+          )
+    #test单条数据插入
     # await FeatureDao.insert(Feature(
     #         geometry=functions.ST_GeomFromGeoJSON(str(feature_collection.features[0].geometry)),
     #         properties=feature_collection.features[0].properties),

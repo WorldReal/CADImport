@@ -21,6 +21,9 @@ class Feature(SQLModel, table=True):
         index=True,
         nullable=False,
     )
+    pid: Optional[uuid.UUID] = Field(
+        nullable=True,
+    )
     geometry: bytes = Field(
         sa_type=ga.Geometry,
         nullable=False,
@@ -30,10 +33,11 @@ class Feature(SQLModel, table=True):
         sa_type=JSONB,
         nullable=True,
     )
-    pid:Optional[uuid.UUID] = Field(
-        default_factory=uuid.uuid4,
-        nullable=False,
-    )
+    # pid:Optional[uuid.UUID] = Field(
+    #     default_factory=uuid.uuid4,
+    #     nullable=False,
+    # )
+
 
 
 # class FeatureCreate(SQLModel):
