@@ -1,5 +1,0 @@
-asyncpg==0.29.0
-ezdxf==0.14.2
-GeoAlchemy2==0.14.7
-geojson==3.1.0
-SQLAlchemy==2.0.25
