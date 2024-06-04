@@ -39,8 +39,9 @@ async def main():
     path_cad = os.path.join(path_base, 'source', 'cad')
 
     '''读取cad的dwg文件获取包围盒'''
-    # # 通过修改win_exec_path的值为自定义安装路径  !!过时   直接在 ezdxf\addons文件内 path更改
+    # 通过修改win_exec_path的值为自定义安装路径
     # odafc.win_exec_path = r'D:\a_code_lib\cadlib\ODAFileConverter\ODAFileConverter.exe'
+    odafc.win_exec_path = os.path.join(path_base, 'source', 'ODAFileConverter','ODAFileConverter.exe')
     # 1 读取dwg文件
     doc = odafc.readfile(os.path.join(path_cad, 'test_feicui','Drawing1.dwg')) # dwg文件名或者路径)
     # 2 转换保存 DXF 文件留档
@@ -48,6 +49,7 @@ async def main():
 
     # 3 DXF内图形转换geojson
     feature_collection = dxf_to_geojson(doc)
+    # TODO 性能生产消费者 每读100条分线程处理下一步
     # print(feature_collection)
 
     # 4 存入空间数据库
@@ -56,6 +58,8 @@ async def main():
     # # new User
     # user = User(name='test', email='test11111@qq.com')
     # await UserDao.insert(user)
+    
+    # 每个文件一个uuid 
     uuid_pwg =uuid.uuid4()
     
     #test单条数据插入
@@ -64,16 +68,12 @@ async def main():
             geometry=functions.ST_GeomFromGeoJSON(str(feature_collection.features[0].geometry)),
             properties=feature_collection.features[0].properties),
           )
-    #test单条数据插入
-    # await FeatureDao.insert(Feature(
-    #         geometry=functions.ST_GeomFromGeoJSON(str(feature_collection.features[0].geometry)),
-    #         properties=feature_collection.features[0].properties),
-    #         pid = uuid_pwg)
-    # # 多条
+    #test多条
     # db_features = []
     # for geojson_data in feature_collection.features:
     #     db_features.append(
     #         Feature(
+    #             pid = uuid_pwg,
     #             geometry=functions.ST_GeomFromGeoJSON(str(geojson_data.geometry)),
     #             properties=geojson_data.properties)   
     #     )

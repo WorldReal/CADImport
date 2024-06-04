@@ -1,7 +1,6 @@
 import uuid
 from typing import Literal, Optional
 
-from fastapi import FastAPI, HTTPException
 
 import geoalchemy2 as ga
 from sqlmodel import Field, Session, SQLModel, create_engine, select

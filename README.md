@@ -11,5 +11,11 @@ python
 
 # 依赖安装
 ```sh
-conda install ezdxf geojson geoalchemy2 shapely
+# conda install  geojson geoalchemy2 shapely
+# conda的ezdxf版本低
+pip3 install pywebview sqlmodel aiofiles asyncpg aiosqlite
+pip3 install ezdxf geojson geoalchemy2 shapely 
+
+# 导出
+conda env export > environment.yaml
 ```
